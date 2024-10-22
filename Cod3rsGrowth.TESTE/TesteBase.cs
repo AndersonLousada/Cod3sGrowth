@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cod3rsGrowth.DOMINIO.Carros;
+using Cod3rsGrowth.TESTE.RepositorioMock;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.TESTE
 {
@@ -14,7 +16,7 @@ namespace Cod3rsGrowth.TESTE
         {
             var services = new ServiceCollection();
 
-            //Escopo destinado para o uso do addScoped dos futuros serviços, validadores e repositórios
+            services.AddScoped<IRepositorioCarro, RepositorioCarro>();
 
             return services;
         }
