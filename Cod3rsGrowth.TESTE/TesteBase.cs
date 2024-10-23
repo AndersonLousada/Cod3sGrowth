@@ -17,10 +17,23 @@ namespace Cod3rsGrowth.TESTE
             var services = new ServiceCollection();
 
             services.AddScoped<IRepositorioCarro, RepositorioCarro>();
+            services.AddScoped<ServicoCarro>();
 
             return services;
         }
 
         protected T GetService<T>() => _service.BuildServiceProvider().GetRequiredService<T>();
+
+        internal void CarregarDadosParaTeste()
+        {
+            var repositorio = new RepositorioCarro();
+            repositorio.CarregarDadosParaTeste();
+        }
+
+        internal void RemoverDadosDeTeste()
+        {
+            var repositorio = new RepositorioCarro();
+            repositorio.RemoverDadosDeTeste();
+        }
     }
 }
