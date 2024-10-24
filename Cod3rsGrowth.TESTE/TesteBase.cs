@@ -17,6 +17,7 @@ namespace Cod3rsGrowth.TESTE
             var services = new ServiceCollection();
 
             services.AddScoped<IRepositorioCarro, RepositorioCarro>();
+            services.AddScoped<ValidadorCarro>();
             services.AddScoped<ServicoCarro>();
 
             return services;

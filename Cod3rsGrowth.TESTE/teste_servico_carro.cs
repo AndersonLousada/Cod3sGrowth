@@ -89,5 +89,239 @@ namespace Cod3rsGrowth.TESTE
             exception.Message.Should().Be($"Recurso não encontrado com Id: {id}");
             RemoverDadosDeTeste();
         }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_modelo()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01,01),
+                AnoModelo = new DateTime(1990, 01,01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Campo modelo deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_marca()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Campo marca deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_ano_fabricacao()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Campo ano de fabricação deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_ano_modelo()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Campo ano de modelo deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_com_ano_de_fabricacao_invalido()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1991, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Ano de fabricacao não deve ser maior que ano modelo");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_combustivel()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Campo combustível deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_nome_do_proprietario()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Nome do proprietário deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_valorCusto()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Custo do veículo deve ser informado");
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_cadastrar_sem_informar_valor_oferta()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
+
+            // Assert
+            exception.Message.Should().Contain("Valor de oferta do veículo deve ser informado");
+        }
+
+        [Fact]
+        public void deve_cadastrar_veiculo_ao_informar_dodos_os_dados_obrigatorios()
+        {
+            //Arrange
+            var carro = new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            _servicoCarro.Criar(carro);
+
+            // Assert
+            var lista = _servicoCarro.ObterTodos(new Filtro());
+            lista.Count.Should().Be(1);
+            RemoverDadosDeTeste();
+        }
     }
 } 

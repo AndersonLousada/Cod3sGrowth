@@ -17,13 +17,12 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
 
         public void Criar(Carro carro)
         {
-            throw new NotImplementedException();
+            _singleton.ObterCarros().Add(carro);
         }
 
-        public Carro ObterPorId(int id)
+        public Carro? ObterPorId(int id)
         {
-            return _singleton.ObterCarros().FirstOrDefault(x => x.Id.Equals(id)) ??
-                throw new Exception($"Recurso não encontrado com Id: {id}");
+            return _singleton.ObterCarros().FirstOrDefault(x => x.Id.Equals(id));
         }
 
         public List<Carro> ObterTodos(Filtro filtro)
