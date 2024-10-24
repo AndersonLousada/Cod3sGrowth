@@ -30,5 +30,11 @@ namespace Cod3rsGrowth.DOMINIO.Carros
             _validador.ValidateAndThrow(carro);
             _repositorio.Criar(carro);
         }
+
+        public void Atualizar(Carro carro)
+        {
+            _validador.ValidateAndThrow(carro);
+            _repositorio.Atualizar(carro);
+        }
     }
 }

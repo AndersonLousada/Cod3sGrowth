@@ -12,11 +12,22 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
 
         public void Atualizar(Carro carro)
         {
-            throw new NotImplementedException();
+            var carroBanco = _singleton.ObterCarros().First(x => x.Id.Equals(carro.Id));
+            carroBanco.Modelo = carro.Modelo;
+            carroBanco.Marca = carro.Marca;
+            carroBanco.AnoModelo = carro.AnoModelo;
+            carroBanco.AnoFabricacao = carro.AnoFabricacao;
+            carroBanco.ValorCusto = carro.ValorCusto;
+            carroBanco.ValorVenda = carro.ValorVenda;
+            carroBanco.ValorOfertado = carro.ValorOfertado;
+            carroBanco.Quitado = carro.Quitado;
+            carroBanco.ProprietarioNome = carro.ProprietarioNome;
+            carroBanco.Combustivel = carro.Combustivel;
         }
 
         public void Criar(Carro carro)
         {
+            carro.Id = _singleton.ObterNovoId();
             _singleton.ObterCarros().Add(carro);
         }
 
