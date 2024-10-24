@@ -58,5 +58,36 @@ namespace Cod3rsGrowth.TESTE
             lista.Count.Should().Be(2);
             RemoverDadosDeTeste();
         }
+
+        [Fact]
+        public void deve_retornar_carro_ao_ObterPorId_com_id_valido()
+        {
+            //Arrange
+            CarregarDadosParaTeste();
+            const int id = 1;
+
+            //Act
+            var carro = _servicoCarro.ObterPorId(id);
+
+            //Assert
+            carro.Should().NotBeNull();
+            carro.Id.Should().Be(id);
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_informar_id_invalido()
+        {
+            //Arrange
+            CarregarDadosParaTeste();
+            const int id = 3;
+
+            // Act
+            var exception = Assert.Throws<Exception>(() => _servicoCarro.ObterPorId(id));
+
+            // Assert
+            exception.Message.Should().Be($"Recurso não encontrado com Id: {id}");
+            RemoverDadosDeTeste();
+        }
     }
 } 

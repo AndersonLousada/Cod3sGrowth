@@ -22,7 +22,8 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
 
         public Carro ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return _singleton.ObterCarros().FirstOrDefault(x => x.Id.Equals(id)) ??
+                throw new Exception($"Recurso não encontrado com Id: {id}");
         }
 
         public List<Carro> ObterTodos(Filtro filtro)
@@ -46,6 +47,7 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
         {
             var carro = new Carro
             {
+                Id = 1,
                 Modelo = "147",
                 Marca = "Fiat",
                 AnoFabricacao = new DateTime(1985, 01, 01),
@@ -59,6 +61,7 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
 
             var carro2 = new Carro
             {
+                Id = 2,
                 Modelo = "City",
                 Marca = "Fiat",
                 AnoFabricacao = new DateTime(1978, 01, 01),
