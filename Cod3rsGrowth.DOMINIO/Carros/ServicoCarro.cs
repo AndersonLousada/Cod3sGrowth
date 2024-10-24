@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using System;
+using System.Collections.Generic;
 
 namespace Cod3rsGrowth.DOMINIO.Carros
 {
     public class ServicoCarro
     {
         private readonly IRepositorioCarro _repositorio;
+        private readonly ValidadorCarro _validador;
 
-        public ServicoCarro(IRepositorioCarro repositorio)
+        public ServicoCarro(IRepositorioCarro repositorio, ValidadorCarro validador)
         {
             _repositorio = repositorio;
+            _validador = validador;
         }
 
         public List<Carro> ObterTodos(Filtro filtro)
@@ -18,7 +22,13 @@ namespace Cod3rsGrowth.DOMINIO.Carros
 
         public Carro ObterPorId(int id) 
         {
-            return _repositorio.ObterPorId(id);
+            return _repositorio.ObterPorId(id) ?? throw new Exception($"Recurso não encontrado com Id: {id}");
+        }
+
+        public void Criar(Carro carro) 
+        {
+            _validador.ValidateAndThrow(carro);
+            _repositorio.Criar(carro);
         }
     }
 }
