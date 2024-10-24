@@ -15,5 +15,10 @@ namespace Cod3rsGrowth.DOMINIO.Carros
         {
             return _repositorio.ObterTodos(filtro); 
         }
+
+        public Carro ObterPorId(int id) 
+        {
+            return _repositorio.ObterPorId(id);
+        }
     }
 }
