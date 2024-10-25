@@ -1,3 +1,7 @@
+using Cod3rsGrowth.DOMINIO.Carros;
+using Cod3rsGrowth.INFRA.Repositorio;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Cod3rsGrowth
 {
     internal static class Program
@@ -8,9 +12,12 @@ namespace Cod3rsGrowth
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            //Mentores foi feito a injeção aqui, porém se preferir podem pedir para criarem o modulo do injeção na camada correspondente
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddScoped<IRepositorioCarro, RepositorioCarro>();
+
             Application.Run(new Form1());
         }
     }

@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cod3rsGrowth.DOMINIO\Cod3rsGrowth.DOMINIO.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,7 +5,7 @@ namespace Cod3rsGrowth.DOMINIO.Carros
     public enum Combustivel
     {
         [Description("Gasolina")]
-        Gasolina,
+        Gasolina = 1,
         [Description("Flex - Etanol/Gasolina")]
         Flex,
         [Description("Etanol")]
