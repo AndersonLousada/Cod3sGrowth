@@ -36,5 +36,11 @@ namespace Cod3rsGrowth.DOMINIO.Carros
             _validador.ValidateAndThrow(carro);
             _repositorio.Atualizar(carro);
         }
+
+        public void Remover(int id)
+        {
+            var carro = ObterPorId(id);
+            _repositorio.Remover((int)carro.Id!);
+        }
     }
 }

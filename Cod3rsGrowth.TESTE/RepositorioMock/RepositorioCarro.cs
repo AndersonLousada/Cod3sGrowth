@@ -27,7 +27,9 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
 
         public void Criar(Carro carro)
         {
-            carro.Id = _singleton.ObterNovoId();
+            if(carro.Id is null)
+                carro.Id = _singleton.ObterNovoId();
+
             _singleton.ObterCarros().Add(carro);
         }
 
@@ -50,7 +52,7 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
 
         public void Remover(int id)
         {
-            throw new NotImplementedException();
+            _singleton.ObterCarros().RemoveAll(carro => carro.Id == id);
         }
 
         internal void CarregarDadosParaTeste()
