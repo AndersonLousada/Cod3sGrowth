@@ -1,5 +1,6 @@
 using Cod3rsGrowth.DOMINIO.Carros;
 using FluentAssertions;
+using System;
 
 namespace Cod3rsGrowth.TESTE
 {
@@ -86,7 +87,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<Exception>(() => _servicoCarro.ObterPorId(id));
 
             // Assert
-            exception.Message.Should().Be($"Recurso não encontrado com Id: {id}");
+            exception.Message.Should().Be($"Recurso nï¿½o encontrado com Id: {id}");
             RemoverDadosDeTeste();
         }
 
@@ -156,7 +157,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Campo ano de fabricação deve ser informado");
+            exception.Message.Should().Contain("Campo ano de fabricaï¿½ï¿½o deve ser informado");
         }
 
         [Fact]
@@ -203,7 +204,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Ano de fabricacao não deve ser maior que ano modelo");
+            exception.Message.Should().Contain("Ano de fabricacao nï¿½o deve ser maior que ano modelo");
         }
 
         [Fact]
@@ -226,7 +227,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Campo combustível deve ser informado");
+            exception.Message.Should().Contain("Campo combustï¿½vel deve ser informado");
         }
 
         [Fact]
@@ -249,7 +250,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Nome do proprietário deve ser informado");
+            exception.Message.Should().Contain("Nome do proprietï¿½rio deve ser informado");
         }
 
         [Fact]
@@ -272,7 +273,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Custo do veículo deve ser informado");
+            exception.Message.Should().Contain("Custo do veï¿½culo deve ser informado");
         }
 
         [Fact]
@@ -295,7 +296,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Valor de oferta do veículo deve ser informado");
+            exception.Message.Should().Contain("Valor de oferta do veï¿½culo deve ser informado");
         }
 
         [Fact]
@@ -321,6 +322,236 @@ namespace Cod3rsGrowth.TESTE
             // Assert
             var lista = _servicoCarro.ObterTodos(new Filtro());
             lista.Count.Should().Be(1);
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_atualizar_sem_informar_ano_fabricacao()
+        {
+            //Arrange
+            _servicoCarro.Criar(new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Etanol,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            });
+
+            const int id = 4;
+            var carroParaAtualizar = new Carro
+            {
+                Id = id,
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Atualizar(carroParaAtualizar));
+
+            //Assert
+            exception.Message.Should().Contain("Campo ano de fabricaï¿½ï¿½o deve ser informado");
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_atualizar_sem_informar_modelo()
+        {
+            //Arrange
+            _servicoCarro.Criar(new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Etanol,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            });
+
+            const int id = 4;
+            var carroParaAtualizar = new Carro
+            {
+                Id = id,
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Atualizar(carroParaAtualizar));
+
+            //Assert
+            exception.Message.Should().Contain("Campo modelo deve ser informado");
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_atualizar_sem_informar_marca()
+        {
+            //Arrange
+            _servicoCarro.Criar(new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Etanol,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            });
+
+            const int id = 4;
+            var carroParaAtualizar = new Carro
+            {
+                Id = id,
+                Modelo = "Ipanema",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Atualizar(carroParaAtualizar));
+
+            //Assert
+            exception.Message.Should().Contain("Campo marca deve ser informado");
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_atualizar_sem_informar_nome_do_proprietario()
+        {
+            //Arrange
+            _servicoCarro.Criar(new Carro
+            {
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Etanol,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            });
+
+            const int id = 4;
+            var carroParaAtualizar = new Carro
+            {
+                Id = id,
+                Modelo = "Ipanema",
+                Marca = "Chevrolet",
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Atualizar(carroParaAtualizar));
+
+            //Assert
+            exception.Message.Should().Contain("Nome do proprietÃ¡rio deve ser informado");
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_atualizar_veiculo_ao_informar_veiculo_valido()
+        {
+            //Arrange
+            const int id = 9;
+            _servicoCarro.Criar(new Carro
+            {
+                Id = id,
+                Modelo = "Ipanema",
+                Marca = "Xevrolet", //Cadastrando nome da marca errado
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Etanol,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            });
+
+            const string marca = "Chevrolet";
+            var carroParaAtualizar = new Carro
+            {
+                Id = id,
+                Modelo = "Ipanema",
+                Marca = marca, //Realizando correï¿½ï¿½o
+                AnoFabricacao = new DateTime(1989, 01, 01),
+                AnoModelo = new DateTime(1990, 01, 01),
+                Combustivel = Combustivel.Gasolina,
+                ProprietarioNome = "Kimura",
+                Quitado = true,
+                ValorCusto = 18000m,
+                ValorOfertado = 25000m
+            };
+
+            // Act
+            _servicoCarro.Atualizar(carroParaAtualizar);
+
+            // Assert
+            var carro = _servicoCarro.ObterPorId(id);
+            carro.Marca.Should().Be(marca);
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_retornar_excessao_ao_tentar_remover_informando_id_invalido()
+        {
+            //Arrange
+            const int id = 8;
+            CarregarDadosParaTeste();
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => _servicoCarro.Remover(id));
+
+            //Assert
+            exception.Message.Should().Contain($"Recurso nÃ£o encontrado com Id: {id}");
+            RemoverDadosDeTeste();
+        }
+
+        [Fact]
+        public void deve_remover_carro_ao_infoirmar_id_valido()
+        {
+            //Arrange
+            const int id = 1;
+            CarregarDadosParaTeste();
+
+            //Act
+            _servicoCarro.Remover(id);
+
+            //Assert
+            var exception = Assert.Throws<Exception>(() => _servicoCarro.ObterPorId(id));
+            exception.Message.Should().Contain($"Recurso nÃ£o encontrado com Id: {id}");
             RemoverDadosDeTeste();
         }
     }
