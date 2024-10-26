@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.TESTE.RepositorioMock
             throw new NotImplementedException();
         }
 
-        public List<Carro> ObterTodos()
+        public List<Carro> ObterTodos(Filtro filtro)
         {
             throw new NotImplementedException();
         }
