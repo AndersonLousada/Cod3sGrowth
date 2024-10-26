@@ -87,7 +87,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<Exception>(() => _servicoCarro.ObterPorId(id));
 
             // Assert
-            exception.Message.Should().Be($"Recurso n�o encontrado com Id: {id}");
+            exception.Message.Should().Be($"Recurso não encontrado com Id: {id}");
             RemoverDadosDeTeste();
         }
 
@@ -157,7 +157,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Campo ano de fabrica��o deve ser informado");
+            exception.Message.Should().Contain("Campo ano de fabricação deve ser informado");
         }
 
         [Fact]
@@ -204,7 +204,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Ano de fabricacao n�o deve ser maior que ano modelo");
+            exception.Message.Should().Contain("Ano de fabricacao não deve ser maior que ano modelo");
         }
 
         [Fact]
@@ -227,7 +227,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Campo combust�vel deve ser informado");
+            exception.Message.Should().Contain("Campo combustível deve ser informado");
         }
 
         [Fact]
@@ -250,7 +250,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Nome do propriet�rio deve ser informado");
+            exception.Message.Should().Contain("Nome do proprietário deve ser informado");
         }
 
         [Fact]
@@ -273,7 +273,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Custo do ve�culo deve ser informado");
+            exception.Message.Should().Contain("Custo do veículo deve ser informado");
         }
 
         [Fact]
@@ -296,7 +296,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Criar(carro));
 
             // Assert
-            exception.Message.Should().Contain("Valor de oferta do ve�culo deve ser informado");
+            exception.Message.Should().Contain("Valor de oferta do veículo deve ser informado");
         }
 
         [Fact]
@@ -360,7 +360,7 @@ namespace Cod3rsGrowth.TESTE
             var exception = Assert.Throws<FluentValidation.ValidationException>(() => _servicoCarro.Atualizar(carroParaAtualizar));
 
             //Assert
-            exception.Message.Should().Contain("Campo ano de fabrica��o deve ser informado");
+            exception.Message.Should().Contain("Campo ano de fabricação deve ser informado");
             RemoverDadosDeTeste();
         }
 
