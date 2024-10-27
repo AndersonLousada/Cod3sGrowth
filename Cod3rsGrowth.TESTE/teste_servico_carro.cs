@@ -505,7 +505,7 @@ namespace Cod3rsGrowth.TESTE
             {
                 Id = id,
                 Modelo = "Ipanema",
-                Marca = marca, //Realizando corre��o
+                Marca = marca, //Realizando correção
                 AnoFabricacao = new DateTime(1989, 01, 01),
                 AnoModelo = new DateTime(1990, 01, 01),
                 Combustivel = Combustivel.Gasolina,
