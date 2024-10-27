@@ -1,5 +1,3 @@
-using Cod3rsGrowth.DOMINIO.Carros;
-using Cod3rsGrowth.INFRA.Repositorio;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth
@@ -14,9 +12,8 @@ namespace Cod3rsGrowth
         {
             ApplicationConfiguration.Initialize();
 
-            //Mentores foi feito a injeção aqui, porém se preferir podem pedir para criarem o modulo do injeção na camada correspondente
+            //Mentores, foi feito a injeÃ§Ã£o aqui, porÃ©m se preferir podem pedir para criarem o modulo do injeÃ§Ã£o na camada correspondente
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddScoped<IRepositorioCarro, RepositorioCarro>();
 
             Application.Run(new Form1());
         }
