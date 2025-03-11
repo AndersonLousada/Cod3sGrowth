@@ -21,7 +21,22 @@ namespace Cod3rsGrowth
         {
             dataGridView1.DataSource = ObterTodos(new Filtro());
             comboBoxCombustivel.DataSource = DefinirCombustiveisParaFiltro();
+            FormatarColunasDeData();
+            FormatarColunasDeValorMonetario();
             InicializarDadosParaFiltroDeData();
+        }
+
+        private void FormatarColunasDeValorMonetario()
+        {
+            dataGridView1.Columns["ValorCusto"].DefaultCellStyle.Format = "C2";
+            dataGridView1.Columns["ValorVenda"].DefaultCellStyle.Format = "C2";
+            dataGridView1.Columns["ValorOfertado"].DefaultCellStyle.Format = "C2";
+        }
+
+        private void FormatarColunasDeData()
+        {
+            dataGridView1.Columns["AnoModelo"].DefaultCellStyle.Format = "yyyy";
+            dataGridView1.Columns["AnoFabricacao"].DefaultCellStyle.Format = "yyyy";
         }
 
         private static string[] DefinirCombustiveisParaFiltro()
