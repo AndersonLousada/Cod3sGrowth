@@ -7,12 +7,14 @@ namespace Cod3rsGrowth
     {
         private readonly DateTime _dataPadrao = new DateTime(2000, 01, 01, 00, 00, 00);
         private readonly IRepositorioCarro _repositorio;
+        private readonly TelaDeCriacao _telaDeCriacao;
 
-        public ListaDeCarros(IRepositorioCarro repositorio)
+        public ListaDeCarros(IRepositorioCarro repositorio, TelaDeCriacao telaDeCriacao)
         {
             InitializeComponent();
             _repositorio = repositorio;
             CarregarTelaInicial();
+            _telaDeCriacao = telaDeCriacao;
         }
 
         private void CarregarTelaInicial()
@@ -50,7 +52,7 @@ namespace Cod3rsGrowth
 
         private decimal? ObterValor()
         {
-            if(string.IsNullOrWhiteSpace(filtroValor.Text))
+            if (string.IsNullOrWhiteSpace(filtroValor.Text))
                 return null;
 
             decimal.TryParse(filtroValor.Text, out var valor);
@@ -96,6 +98,14 @@ namespace Cod3rsGrowth
             else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void AoClicarEmAdicionar(object sender, EventArgs e)
+        {
+            if (_telaDeCriacao.ShowDialog() == DialogResult.OK)
+            {
+                CarregarTelaInicial();
             }
         }
     }

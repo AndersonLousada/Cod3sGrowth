@@ -64,6 +64,7 @@
             botaoAdicionar.TabIndex = 1;
             botaoAdicionar.Text = "Adicionar";
             botaoAdicionar.UseVisualStyleBackColor = true;
+            botaoAdicionar.Click += AoClicarEmAdicionar;
             // 
             // botaoEditar
             // 
