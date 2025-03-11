@@ -1,9 +1,11 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 
 namespace Cod3rsGrowth.DOMINIO.Carros
 {
     public sealed class Carro
     {
+        [PrimaryKey, Identity]
         public int? Id { get; set; }
         public string Modelo { get; set; }
         public string Marca { get; set; }

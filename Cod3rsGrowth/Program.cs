@@ -21,6 +21,9 @@ namespace Cod3rsGrowth
             var service = new ServiceCollection();
             service.AddScoped<IRepositorioCarro, RepositorioCarro>();
             service.AddScoped<ListaDeCarros>();
+            service.AddScoped<TelaDeCriacao>();
+            service.AddScoped<ValidadorCarro>();
+            service.AddScoped<ServicoCarro>();
             service.MigrationRun();
             serviceProvider = service.BuildServiceProvider();
 
