@@ -126,8 +126,10 @@ namespace Cod3rsGrowth
 
         private Combustivel ObterCombustivelSelecionado()
         {
+            const int enumeradorPadrao = 1;
             int indiceSelecionado = comboBoxCombustivel.FindString(comboBoxCombustivel.Text);
-            return ExtensaoEnum.GetEnum<Combustivel>(indiceSelecionado + 1);
+
+            return ExtensaoEnum.GetEnum<Combustivel>(indiceSelecionado + enumeradorPadrao);
         }
     }
 }
