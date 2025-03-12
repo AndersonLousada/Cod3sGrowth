@@ -83,6 +83,7 @@
             botaoRemover.TabIndex = 3;
             botaoRemover.Text = "Remover";
             botaoRemover.UseVisualStyleBackColor = true;
+            botaoRemover.Click += AoClicarEmRemover;
             // 
             // filtroModelo
             // 

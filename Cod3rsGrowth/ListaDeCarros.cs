@@ -1,20 +1,24 @@
 using Cod3rsGrowth.DOMINIO.Carros;
 using Cod3rsGrowth.DOMINIO.Extencoes;
+using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
     public partial class ListaDeCarros : Form
     {
+        private readonly string _titulo = "Atenção";
         private readonly DateTime _dataPadrao = new DateTime(2000, 01, 01, 00, 00, 00);
         private readonly IRepositorioCarro _repositorio;
         private readonly TelaDeCriacao _telaDeCriacao;
+        private readonly ServicoCarro _servicoCarro;
 
-        public ListaDeCarros(IRepositorioCarro repositorio, TelaDeCriacao telaDeCriacao)
+        public ListaDeCarros(IRepositorioCarro repositorio, TelaDeCriacao telaDeCriacao, ServicoCarro servicoCarro)
         {
             InitializeComponent();
             _repositorio = repositorio;
             CarregarTelaInicial();
             _telaDeCriacao = telaDeCriacao;
+            _servicoCarro = servicoCarro;
         }
 
         private void CarregarTelaInicial()
@@ -122,6 +126,59 @@ namespace Cod3rsGrowth
             {
                 CarregarTelaInicial();
             }
+        }
+
+        private void AoClicarEmRemover(object sender, EventArgs e)
+        {
+            try
+            {
+                var linhas = dataGridView1.SelectedRows;
+                ValidarQuantidadeDeLinhasSelecionadas(linhas);
+                DialogResult resposta = ExibirMensagemDeConfirmacao();
+
+                if (resposta != DialogResult.Yes)
+                    return;
+
+                const int INDICE_LINHA = 0;
+                const int INDICE_COLUNA_ID = 0;
+                var id = (int)linhas[INDICE_LINHA].Cells[INDICE_COLUNA_ID].Value;
+                _servicoCarro.Remover(id);
+                DialogResult respostaMensagemDeSucesso = ExibirMensagemDeSucesso();
+
+                if (respostaMensagemDeSucesso == DialogResult.OK)
+                    CarregarTelaInicial();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, _titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private DialogResult ExibirMensagemDeSucesso()
+        {
+            const string MENSAGEM_DE_SUCESSO = "Removido com sucesso.";
+            const string TITULO = "Sucesso";
+            return MessageBox.Show(MENSAGEM_DE_SUCESSO, TITULO, MessageBoxButtons.OK, MessageBoxIcon.None);
+        }
+
+        private DialogResult ExibirMensagemDeConfirmacao()
+        {
+            const string MENSAGEM = "Deseja realmente remover? Essa ação não poderá ser desfeita";
+            MessageBoxButtons botao = MessageBoxButtons.YesNo;
+            MessageBoxIcon icone = MessageBoxIcon.Question;
+
+            DialogResult resposta = MessageBox.Show(MENSAGEM, _titulo, botao, icone);
+            return resposta;
+        }
+
+        private void ValidarQuantidadeDeLinhasSelecionadas(DataGridViewSelectedRowCollection linhas)
+        {
+            const int numeroValidoDeLinhasSelecionadas = 1;
+            if (linhas.Count > numeroValidoDeLinhasSelecionadas)
+                throw new Exception("Selecione apenas uma linha da tabela");
+
+            if (linhas.Count < numeroValidoDeLinhasSelecionadas)
+                throw new Exception("Nenhuma linha foi selecionada");
         }
     }
 }
