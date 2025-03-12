@@ -46,7 +46,7 @@
             label2 = new Label();
             label3 = new Label();
             comboBoxCombustivel = new ComboBox();
-            Quitado = new CheckBox();
+            CheckBoxQuitado = new CheckBox();
             botaoSalvar = new Button();
             botaoCancelar = new Button();
             SuspendLayout();
@@ -122,13 +122,12 @@
             InputAnoFabricacao.CustomFormat = "yyyy";
             InputAnoFabricacao.Format = DateTimePickerFormat.Custom;
             InputAnoFabricacao.Location = new Point(12, 122);
-            InputAnoFabricacao.MaxDate = new DateTime(2025, 3, 11, 0, 0, 0, 0);
-            InputAnoFabricacao.MinDate = new DateTime(2010, 1, 1, 0, 0, 0, 0);
+            InputAnoFabricacao.MaxDate = new DateTime(2025, 12, 31, 0, 0, 0, 0);
+            InputAnoFabricacao.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
             InputAnoFabricacao.Name = "InputAnoFabricacao";
             InputAnoFabricacao.ShowUpDown = true;
             InputAnoFabricacao.Size = new Size(141, 23);
             InputAnoFabricacao.TabIndex = 8;
-            InputAnoFabricacao.Value = new DateTime(2025, 3, 11, 0, 0, 0, 0);
             // 
             // InputAnoModelo
             // 
@@ -136,12 +135,11 @@
             InputAnoModelo.Format = DateTimePickerFormat.Custom;
             InputAnoModelo.Location = new Point(165, 122);
             InputAnoModelo.MaxDate = new DateTime(2025, 12, 31, 0, 0, 0, 0);
-            InputAnoModelo.MinDate = new DateTime(2010, 1, 1, 0, 0, 0, 0);
+            InputAnoModelo.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
             InputAnoModelo.Name = "InputAnoModelo";
             InputAnoModelo.ShowUpDown = true;
             InputAnoModelo.Size = new Size(144, 23);
             InputAnoModelo.TabIndex = 9;
-            InputAnoModelo.Value = new DateTime(2025, 3, 11, 0, 0, 0, 0);
             // 
             // InputVenda
             // 
@@ -211,15 +209,15 @@
             comboBoxCombustivel.Size = new Size(140, 23);
             comboBoxCombustivel.TabIndex = 17;
             // 
-            // Quitado
+            // CheckBoxQuitado
             // 
-            Quitado.AutoSize = true;
-            Quitado.Location = new Point(199, 225);
-            Quitado.Name = "Quitado";
-            Quitado.Size = new Size(110, 19);
-            Quitado.TabIndex = 19;
-            Quitado.Text = "Com alienação?";
-            Quitado.UseVisualStyleBackColor = true;
+            CheckBoxQuitado.AutoSize = true;
+            CheckBoxQuitado.Location = new Point(199, 225);
+            CheckBoxQuitado.Name = "CheckBoxQuitado";
+            CheckBoxQuitado.Size = new Size(110, 19);
+            CheckBoxQuitado.TabIndex = 19;
+            CheckBoxQuitado.Text = "Com alienação?";
+            CheckBoxQuitado.UseVisualStyleBackColor = true;
             // 
             // botaoSalvar
             // 
@@ -249,7 +247,7 @@
             ClientSize = new Size(317, 298);
             Controls.Add(botaoCancelar);
             Controls.Add(botaoSalvar);
-            Controls.Add(Quitado);
+            Controls.Add(CheckBoxQuitado);
             Controls.Add(comboBoxCombustivel);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -270,7 +268,7 @@
             Controls.Add(Modelo);
             Name = "TelaDeCriacao";
             Text = "Veículo";
-            Load += InicializarTela;
+            FormClosed += LimparCampos;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -295,7 +293,7 @@
         private Label label2;
         private Label label3;
         private ComboBox comboBoxCombustivel;
-        private CheckBox Quitado;
+        private CheckBox CheckBoxQuitado;
         private Button botaoSalvar;
         private Button botaoCancelar;
     }

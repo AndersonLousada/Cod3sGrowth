@@ -1,6 +1,5 @@
 using Cod3rsGrowth.DOMINIO.Carros;
 using Cod3rsGrowth.DOMINIO.Extencoes;
-using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
@@ -139,9 +138,7 @@ namespace Cod3rsGrowth
                 if (resposta != DialogResult.Yes)
                     return;
 
-                const int INDICE_LINHA = 0;
-                const int INDICE_COLUNA_ID = 0;
-                var id = (int)linhas[INDICE_LINHA].Cells[INDICE_COLUNA_ID].Value;
+                int id = ObterIdDoItemSelecionado(linhas);
                 _servicoCarro.Remover(id);
                 DialogResult respostaMensagemDeSucesso = ExibirMensagemDeSucesso();
 
@@ -179,6 +176,36 @@ namespace Cod3rsGrowth
 
             if (linhas.Count < numeroValidoDeLinhasSelecionadas)
                 throw new Exception("Nenhuma linha foi selecionada");
+        }
+
+        private int ObterIdDoItemSelecionado(DataGridViewSelectedRowCollection linhas)
+        {
+            const int INDICE_LINHA = 0;
+            const int INDICE_COLUNA_ID = 0;
+            return (int)linhas[INDICE_LINHA].Cells[INDICE_COLUNA_ID].Value;
+        }
+
+        private void AoClicarEmEditar(object sender, EventArgs e)
+        {
+            try
+            {
+                var linhas = dataGridView1.SelectedRows;
+                ValidarQuantidadeDeLinhasSelecionadas(linhas);
+
+                int id = ObterIdDoItemSelecionado(linhas);
+                var carro = _servicoCarro.ObterPorId(id);
+                _telaDeCriacao.CarregaTelaModoEdicao(carro);
+
+                if (_telaDeCriacao.ShowDialog() == DialogResult.OK)
+                {
+                    CarregarTelaInicial();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, _titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

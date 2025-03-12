@@ -19,6 +19,7 @@ namespace Cod3rsGrowth.INFRA.Repositorio
                 .Set(x => x.ValorCusto, carro.ValorCusto)
                 .Set(x => x.ValorOfertado, carro.ValorOfertado)
                 .Set(x => x.ValorVenda, carro.ValorVenda)
+                .Set(x => x.Quitado, carro.Quitado)
                 .Set(x => x.ProprietarioNome, carro.ProprietarioNome)
                 .Update();
         }
