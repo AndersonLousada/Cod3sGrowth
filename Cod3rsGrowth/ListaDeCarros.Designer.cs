@@ -74,6 +74,7 @@
             botaoEditar.TabIndex = 2;
             botaoEditar.Text = "Editar";
             botaoEditar.UseVisualStyleBackColor = true;
+            botaoEditar.Click += AoClicarEmEditar;
             // 
             // botaoRemover
             // 

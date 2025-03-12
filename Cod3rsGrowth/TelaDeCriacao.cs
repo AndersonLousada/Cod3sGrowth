@@ -7,16 +7,13 @@ namespace Cod3rsGrowth
     {
         private readonly DateTime _dataPadrao = new DateTime(2000, 01, 01, 00, 00, 00);
         private readonly ServicoCarro _servicoCarro;
+        private int? _idCarro = null;
+
         public TelaDeCriacao(ServicoCarro servico)
         {
             InitializeComponent();
             CarregarTelaInicial();
             _servicoCarro = servico;
-        }
-
-        private void InicializarTela(object sender, EventArgs e)
-        {
-            CarregarTelaInicial();
         }
 
         private void CarregarTelaInicial()
@@ -40,17 +37,30 @@ namespace Cod3rsGrowth
 
         private void LimparCampos()
         {
+            _idCarro = null;
             InputModelo.Text = string.Empty;
             InputMarca.Text = string.Empty;
             InputProprietario.Text = string.Empty;
             InputCusto.Text = string.Empty;
             InputValorOfertado.Text = string.Empty;
             InputVenda.Text = string.Empty;
-            InputAnoFabricacao.MinDate = _dataPadrao;
             InputAnoFabricacao.Value = _dataPadrao;
-            InputAnoModelo.MinDate = _dataPadrao;
             InputAnoModelo.Value = _dataPadrao;
-            Quitado.Checked = false;
+            CheckBoxQuitado.Checked = false;
+        }
+
+        public void CarregaTelaModoEdicao(Carro carro)
+        {
+            _idCarro = carro.Id;
+            InputModelo.Text = carro.Modelo;
+            InputMarca.Text = carro.Marca;
+            InputProprietario.Text = carro.ProprietarioNome;
+            InputCusto.Text = carro.ValorCusto.ToString();
+            InputValorOfertado.Text = carro.ValorOfertado.ToString();
+            InputVenda.Text = carro.ValorVenda.ToString();
+            InputAnoFabricacao.Value = carro.AnoFabricacao;
+            InputAnoModelo.Value = carro.AnoModelo;
+            CheckBoxQuitado.Checked = carro.Quitado;
         }
 
         private void AoClicarEmSalvar(object sender, EventArgs e)
@@ -59,6 +69,7 @@ namespace Cod3rsGrowth
             {
                 var carro = new Carro
                 {
+                    Id = _idCarro,
                     Modelo = InputModelo.Text,
                     Marca = InputMarca.Text,
                     ProprietarioNome = InputProprietario.Text,
@@ -67,14 +78,22 @@ namespace Cod3rsGrowth
                     ValorVenda = ObterValor(InputVenda.Text),
                     AnoFabricacao = InputAnoFabricacao.Value,
                     AnoModelo = InputAnoModelo.Value,
-                    Quitado = Quitado.Checked,
+                    Quitado = CheckBoxQuitado.Checked,
                     Combustivel = ObterCombustivelSelecionado()
                 };
 
-                _servicoCarro.Criar(carro);
+                var ehModoCriacao = _idCarro is null;
+
+                if (ehModoCriacao)
+                    _servicoCarro.Criar(carro);
+                else
+                    _servicoCarro.Atualizar(carro);
+
                 DialogResult = DialogResult.OK;
                 Close();
-                MessageBox.Show("Veículo criado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.None);
+
+                string tipoDeAcao = ehModoCriacao ? "cadastrado" : "atualizado";
+                MessageBox.Show($"Veículo {tipoDeAcao} com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.None);
             }
             catch (Exception ex)
             {
@@ -130,6 +149,11 @@ namespace Cod3rsGrowth
             int indiceSelecionado = comboBoxCombustivel.FindString(comboBoxCombustivel.Text);
 
             return ExtensaoEnum.GetEnum<Combustivel>(indiceSelecionado + enumeradorPadrao);
+        }
+
+        private void LimparCampos(object sender, FormClosedEventArgs e)
+        {
+            LimparCampos();
         }
     }
 }
