@@ -10,6 +10,8 @@ namespace Cod3rsGrowth
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+        public static IServiceProvider serviceProvider { get; private set; }
+
         [STAThread]
         static void Main()
         {
@@ -18,9 +20,14 @@ namespace Cod3rsGrowth
             //Mentores foi feito a injeção aqui, porém se preferir podem pedir para criarem o modulo do injeção na camada correspondente
             var service = new ServiceCollection();
             service.AddScoped<IRepositorioCarro, RepositorioCarro>();
+            service.AddScoped<ListaDeCarros>();
+            service.AddScoped<TelaDeCriacao>();
+            service.AddScoped<ValidadorCarro>();
+            service.AddScoped<ServicoCarro>();
             service.MigrationRun();
+            serviceProvider = service.BuildServiceProvider();
 
-            Application.Run(new Form1());
+            Application.Run(serviceProvider.GetRequiredService<ListaDeCarros>());
         }
     }
 }

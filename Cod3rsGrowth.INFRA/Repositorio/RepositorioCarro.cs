@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.DOMINIO.Carros;
 using LinqToDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,7 @@ namespace Cod3rsGrowth.INFRA.Repositorio
                 .Set(x => x.ValorCusto, carro.ValorCusto)
                 .Set(x => x.ValorOfertado, carro.ValorOfertado)
                 .Set(x => x.ValorVenda, carro.ValorVenda)
+                .Set(x => x.Quitado, carro.Quitado)
                 .Set(x => x.ProprietarioNome, carro.ProprietarioNome)
                 .Update();
         }
@@ -37,9 +39,19 @@ namespace Cod3rsGrowth.INFRA.Repositorio
             var query = Carro();
 
             if (!string.IsNullOrWhiteSpace(filtro.Modelo))
-            {
-                query = query.Where(x => x.Modelo.Equals(filtro.Modelo)) as ITable<Carro>;
-            }
+                query = query.Where(x => x.Modelo.Contains(filtro.Modelo));
+
+            if (!string.IsNullOrWhiteSpace(filtro.ProprietarioNome))
+                query = query.Where(x => x.ProprietarioNome.Contains(filtro.ProprietarioNome));
+
+            if (filtro.AnoModelo != DateTime.MinValue)
+                query = query.Where(x => x.AnoModelo.Year.Equals(filtro.AnoModelo.Year));
+
+            if (filtro.Combustivel != null)
+                query = query.Where(x => x.Combustivel.Equals(filtro.Combustivel));
+
+            if (filtro.ValorOfertado != null)
+                query = query.Where(x => x.ValorOfertado.Equals(filtro.ValorOfertado));
 
             return query.ToList();
         }
@@ -49,7 +61,7 @@ namespace Cod3rsGrowth.INFRA.Repositorio
             Carro().Where(x => x.Id == id).Delete();
         }
 
-        private ITable<Carro> Carro()
+        private IQueryable<Carro> Carro()
         {
             return Conexao().GetTable<Carro>();
         }
