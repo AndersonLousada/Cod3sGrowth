@@ -20,5 +20,13 @@ namespace Cod3rsGrowth.WEB.Controllers
             _servicoCarro.Criar(carro);
             return Created(carro.Id.ToString()!, carro);
         }
+
+        [HttpGet]
+        public IActionResult ObterTodos([FromQuery] Filtro filtro)
+        {
+            var carros = _servicoCarro.ObterTodos(filtro);
+
+            return Ok(carros);
+        }
     }
 }
