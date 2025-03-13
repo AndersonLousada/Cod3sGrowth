@@ -37,5 +37,15 @@ namespace Cod3rsGrowth.WEB.Controllers
 
             return Ok(carro);
         }
+
+        [HttpPatch]
+        [Route("{id}")]
+        public NoContentResult Atualizar([FromRoute] int id, [FromBody] Carro carro)
+        {
+            carro.Id = id;
+            _servicoCarro.Atualizar(carro);
+
+            return NoContent();
+        }
     }
 }
