@@ -28,5 +28,14 @@ namespace Cod3rsGrowth.WEB.Controllers
 
             return Ok(carros);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult ObterPorId([FromRoute] int id)
+        {
+            var carro = _servicoCarro.ObterPorId(id);
+
+            return Ok(carro);
+        }
     }
 }
