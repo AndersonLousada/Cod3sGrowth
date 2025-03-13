@@ -34,6 +34,7 @@ namespace Cod3rsGrowth.DOMINIO.Carros
         public void Atualizar(Carro carro)
         {
             _validador.ValidateAndThrow(carro);
+            ObterPorId((int)carro.Id!);
             _repositorio.Atualizar(carro);
         }
 
