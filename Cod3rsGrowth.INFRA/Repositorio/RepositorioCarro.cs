@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.INFRA.Repositorio
 
         public void Criar(Carro carro)
         {
-            Conexao().Insert(carro);
+            carro.Id = Conexao().InsertWithInt32Identity(carro);
         }
 
         public Carro ObterPorId(int id)
