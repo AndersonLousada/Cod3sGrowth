@@ -58,8 +58,7 @@ namespace Cod3rsGrowth.WEB.Exceptions
                     var problemDetails = new ValidationProblemDetails(context.ModelState)
                     {
                         Instance = context.HttpContext.Request.Path,
-                        Status = StatusCodes.Status400BadRequest,
-                        Detail = "Please refer to the errors property for additional details"
+                        Status = StatusCodes.Status400BadRequest
                     };
 
                     return new BadRequestObjectResult(problemDetails)
