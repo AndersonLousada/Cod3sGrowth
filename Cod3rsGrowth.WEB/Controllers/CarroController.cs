@@ -47,5 +47,14 @@ namespace Cod3rsGrowth.WEB.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public NoContentResult Remover([FromRoute] int id)
+        {
+            _servicoCarro.Remover(id);
+
+            return NoContent();
+        }
     }
 }
