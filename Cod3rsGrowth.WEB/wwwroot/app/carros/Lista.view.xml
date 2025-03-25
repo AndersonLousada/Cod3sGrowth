@@ -1,0 +1,22 @@
+<mvc:View
+	controllerName="coders.growth.app.carros.Lista"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Page
+		title="{i18n>TelaDeListagem.Titulo}"
+		class="sapUiContentPadding"
+		showNavButton="false" >
+		<content>
+            <List headerText="{i18n>TelaDeListagem.Veiculos}" mode="SingleSelectMaster" items="" >
+                <CustomListItem>
+                    <HBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label text=""/>
+                        </VBox>
+                    </HBox>
+                </CustomListItem>
+            </List>
+		</content>
+	</Page>
+</mvc:View>

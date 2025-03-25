@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Cod3rsGrowth.INFRA\Cod3rsGrowth.INFRA.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
