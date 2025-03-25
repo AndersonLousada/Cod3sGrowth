@@ -67,7 +67,10 @@
 				"viewType": "XML",
 				"path": "coders.growth.app",
 				"controlId": "app",
-				"controlAggregation": "pages"
+				"controlAggregation": "pages",
+				"bypassed": {
+				   "target": "notFound"
+				}
 			},
 			"routes": [
 				{
@@ -80,6 +83,11 @@
 				"lista": {
 					"id": "lista",
 					"name": "carros.Lista"
+				},
+				"notFound": {
+				   "id": "notFound",
+				   "name": "NotFound",
+				   "transition": "slide"
 				}
 			}
 		}

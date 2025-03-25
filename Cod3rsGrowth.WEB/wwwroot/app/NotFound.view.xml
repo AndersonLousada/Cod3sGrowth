@@ -1,0 +1,11 @@
+<mvc:View
+   controllerName="coders.growth.app.NotFound"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <MessagePage
+        showNavButton="true"
+        navButtonPress="aoClicarEmVoltar"
+        title="{i18n>NotFound.Titulo}"
+        text="{i18n>NotFound.text}"
+        description="{i18n>NotFound.description}"/>
+</mvc:View>
