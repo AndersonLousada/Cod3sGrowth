@@ -8,11 +8,104 @@
 		class="sapUiContentPadding"
 		showNavButton="false" >
 		<content>
-            <List headerText="{i18n>TelaDeListagem.Veiculos}" mode="SingleSelectMaster" items="" >
+            <List id="listaDeVeiculos" mode="SingleSelectMaster" items="{carros>/}" >
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<Title text="{i18n>TelaDeListagem.Veiculos}" level="H2"/>
+							<ToolbarSpacer />
+							<SearchField width="160px" value="{filtro>/modelo}" placeholder="{i18n>TelaDeListagem.Modelo}" search="aoFiltrarPorModelo"/>
+							<SearchField width="160px" value="{filtro>/proprietarioNome}" placeholder="{i18n>TelaDeListagem.Proprietario}" search="aoFiltrarPorProprietario"/>
+							<MaskInput width="160px" mask="~~~~" placeholderSymbol="_" value="{filtro>/ano}" placeholder="{i18n>TelaDeListagem.AnoModelo}">
+								<rules>
+									<MaskInputRule maskFormatSymbol="~" regex="[A-Z0-9]"/>
+								</rules>
+							</MaskInput>
+							<Input width="160px" value="{filtro>/valorOfertado}" type="Number" placeholder="{i18n>TelaDeListagem.ValorOfertado}"/>
+							<Select
+								class="sapUiSmallMarginEnd"
+								width="160px"
+								forceSelection="true"
+								selectedKey="{filtro>/combustivel}"
+								items="{
+									path: 'aux>/'
+								}">
+								<core:Item key="{aux>}" text="{aux>}" />
+							</Select>
+							<Button icon="sap-icon://add-filter" tooltip="{i18n>TelaDeListagem.Filtrar}" type="Ghost" press="aoClicarEmFiltrar" />
+							<Button icon="sap-icon://clear-filter" tooltip="{i18n>TelaDeListagem.LimparFiltros}" type="Transparent" press="aoClicarEmLimparFiltros" />
+							<Button icon="sap-icon://add" tooltip="{i18n>TelaDeListagem.Adicionar}" type="Emphasized" press="onPress" />			
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
                 <CustomListItem>
-                    <HBox>
+                    <HBox justifyContent="SpaceAround">
                         <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                            <Label text=""/>
+                            <Label design="Bold" text="{i18n>TelaDeListagem.Modelo}"/>
+                            <Text text="{carros>modelo}"/>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.Marca}"/>
+                            <Text text="{carros>marca}"/>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.AnoFabricacao}"/>
+                            <Text text="{
+								path: 'carros>anoFabricacao',
+								formatter: '.Formatter.formatarAno'
+							}"/> 
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.AnoModelo}"/>
+                            <Text text="{
+								path: 'carros>anoModelo',
+								formatter: '.Formatter.formatarAno'
+							}"/> 
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.Combustivel}"/>
+                            <Text text="{
+								parts: ['carros>combustivel', 'aux>/'],
+								formatter: '.Formatter.formatarCombustivel'
+							}"/> 
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.Proprietario}"/>
+                            <Text text="{carros>proprietarioNome}"/> 
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.Quitado}"/>
+                            <Text text="{= ${carros>quitado} ? 'Sim' : 'Não' }"/> 
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.Custo}"/>
+							<Text text="{
+								parts: ['carros>valorCusto', 'carros>currency'],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {
+									currencyCode : false
+								}
+							}" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.ValorOfertado}"/>
+							<Text text="{
+								parts: ['carros>valorOfertado', 'carros>currency'],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {
+									currencyCode : false
+								}
+							}" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                            <Label design="Bold" text="{i18n>TelaDeListagem.ValorMinimoVenda}"/>
+							<Text text="{
+								parts: ['carros>valorVenda', 'carros>currency'],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {
+									currencyCode : false
+								}
+							}" />
                         </VBox>
                     </HBox>
                 </CustomListItem>

@@ -13,13 +13,18 @@ sap.ui.define([
 			// Assertions
 			Then.
 				naPaginaDeListagemDeVeiculos.
-				listaDeVeiculosFoiCarregadaConformeEsperado().
+				paginaFoiCarregadaConformeEsperado().
 				and.
-				listaDeveEstarCarregada();
+				listaPossuiTituloEsperado().
+				and.
+				listaNaoDeveEstarVazia().
+				and.
+				filtroModeloDeveEstarVazio().
+				and.
+				filtroProprietarioDeveEstarVazio();
 
 			// Cleanup
-			Then.iTeardownMyApp(); // Esse método deve ser sempre chamado uma única vez na jornada inteira. 
-			// Como nesse exemplo só existe um teste, então por esse motivo ele está logo no primeiro.
+			Then.iTeardownMyApp();
 		});
 	});
 
